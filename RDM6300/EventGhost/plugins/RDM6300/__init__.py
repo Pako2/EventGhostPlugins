@@ -17,7 +17,7 @@ version = "0.0"
 #
 # Changelog (in reverse chronological order):
 # -------------------------------------------
-# 0.0 by Pako 2017-05-28 08:58 UTC+1
+# 0.0 by Pako 2017-05-28 09:02 UTC+1
 #     - initial version
 #===============================================================================
 
@@ -36,7 +36,7 @@ Hardware plugin for the 125kHz RFID module RDM6300.
 
 Plugin version: %s
 ''' % version,
-    url = http://www.eventghost.net/forum/viewtopic.php?f=9&t=9688,
+    url = "http://www.eventghost.net/forum/viewtopic.php?f=9&t=9688",
     icon = (
         "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QAAAAAAAD5Q7t/"
         "AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QUOCRwjcjKNZAAABN5JREFUWMO9"
