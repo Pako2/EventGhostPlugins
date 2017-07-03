@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-version = "0.0"
+version = "0.1"
 # This file is a plugin for EventGhost.
 # Copyright (C) 2005-2017 www.eventghost.net
 #
@@ -17,6 +17,8 @@ version = "0.0"
 #
 # Changelog (in reverse chronological order):
 # -------------------------------------------
+# 0.1 by Pako 2017-07-03 14:21 UTC+1
+#     - added support for module RF125-PS
 # 0.0 by Pako 2017-05-28 09:02 UTC+1
 #     - initial version
 #===============================================================================
@@ -30,9 +32,10 @@ eg.RegisterPlugin(
     guid = "{5CB8D6DC-AE57-4254-8457-46A0FC770B64}",
     canMultiLoad = False,
     description =  '''<rst>
-Hardware plugin for the 125kHz RFID module RDM6300.
+Hardware plugin for the 125kHz RFID module RDM6300 or RF125-PS.
 
 .. image:: picture.jpg
+.. image:: picture2.jpg
 
 Plugin version: %s
 ''' % version,
@@ -101,12 +104,20 @@ def Move(lst, index, direction):
 def getID(data):
     if ord(data[0]) != 2 or ord(data[-1]) != 3:
         return "ERROR 1"
-    tmp = 0
-    for ix in range(1, len(data) - 3, 2):
-        tmp = tmp ^ int(data[ix:ix + 2], 16)
-    if tmp != int(data[ix + 2:ix + 4], 16):
+    if len(data) == 14:
+        lng = len(data) - 4
+        chsum = int(data[-3:-1], 16)
+    elif len(data) == 13:
+        lng = len(data) - 3
+        chsum = ord(data[-2])
+    else:
         return "ERROR 2"
-    res = int(data[1:len(data)-3], 16)
+    tmp = 0
+    for ix in range(1, lng, 2):
+        tmp = tmp ^ int(data[ix:ix + 2], 16)
+    if tmp != chsum:
+        return "ERROR 3"
+    res = int(data[1:lng], 16)
     return str(res).zfill(13)
 #===============================================================================
 
