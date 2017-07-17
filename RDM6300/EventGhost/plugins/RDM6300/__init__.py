@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-version = "0.1"
+version = "0.2"
 # This file is a plugin for EventGhost.
 # Copyright (C) 2005-2017 www.eventghost.net
 #
@@ -17,6 +17,8 @@ version = "0.1"
 #
 # Changelog (in reverse chronological order):
 # -------------------------------------------
+# 0.2 by Pako 2017-07-17 08:34 UTC+1
+#     - bugfix
 # 0.1 by Pako 2017-07-03 14:21 UTC+1
 #     - added support for module RF125-PS
 # 0.0 by Pako 2017-05-28 09:02 UTC+1
@@ -105,19 +107,18 @@ def getID(data):
     if ord(data[0]) != 2 or ord(data[-1]) != 3:
         return "ERROR 1"
     if len(data) == 14:
-        lng = len(data) - 4
         chsum = int(data[-3:-1], 16)
     elif len(data) == 13:
-        lng = len(data) - 3
         chsum = ord(data[-2])
     else:
         return "ERROR 2"
+    lng = 10
     tmp = 0
-    for ix in range(1, lng, 2):
+    for ix in range(1, lng + 1, 2):
         tmp = tmp ^ int(data[ix:ix + 2], 16)
     if tmp != chsum:
         return "ERROR 3"
-    res = int(data[1:lng], 16)
+    res = int(data[1:lng + 1], 16)
     return str(res).zfill(13)
 #===============================================================================
 
