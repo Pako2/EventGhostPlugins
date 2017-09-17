@@ -232,7 +232,7 @@ void processSyncEvent(NTPSyncEvent_t ntpEvent)
   {
     Serial.begin(115200);
     Serial.println();
-    Serial.println(F("[ INFO ] ESP-IO v0.0.1"));
+    Serial.println(F("[ INFO ] ESP-IO v0.0.2"));
 
     for (uint8_t i = 0; i < MAX_CLIENTS; i++)
     {
@@ -475,11 +475,11 @@ void processSyncEvent(NTPSyncEvent_t ntpEvent)
               SPIFFS.remove(filename);
             }
             else if (strcmp(command, "configfile")  == 0) {
+              //Serial.print("configfile received ...");
               //ToDo: Only save the file after checking !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
               File f = SPIFFS.open("/auth/config.json", "w+");
               if (f) {
                 root.prettyPrintTo(f);
-                //f.print(msg);
                 f.close();
                 ESP.reset();
               }
@@ -858,20 +858,20 @@ void processSyncEvent(NTPSyncEvent_t ntpEvent)
     Serial.println(F("[ INFO ] Config file found"));
     cfg.prettyPrintTo(Serial);
     Serial.println();
-    ntpserver              = cfg["ntpserver"].as<String>();
-    ntpinter               = cfg["ntpinterval"];
-    timeZone               = cfg["timezone"];
+    ntpserver              = cfg["ntpser"].as<String>();
+    ntpinter               = cfg["ntpint"];
+    timeZone               = cfg["tz"];
     const char * ssid      = cfg["ssid"];
     const char * password  = cfg["pswd"];
     uint8_t wmode          = cfg["wmode"];
     hstname                = cfg["hostnm"].as<String>();
-    wifiled                = cfg["wifiled"].as<String>();
-    address                = cfg["address"].as<String>();
-    gw                     = cfg["gateway"].as<String>();
+    wifiled                = cfg["wled"].as<String>();
+    address                = cfg["addr"].as<String>();
+    gw                     = cfg["gw"].as<String>();
     mask                   = cfg["mask"].as<String>();
     ipmode                 = cfg["ipmode"];
     const char * bssidmac  = cfg["bssid"];
-    adminpass              = cfg["adminpwd"].as<String>();
+    adminpass              = cfg["apwd"].as<String>();
     encodedApass           = base64::encode(adminpass);
 
     JsonArray& gpios_ = cfg["gpios"];
