@@ -134,7 +134,7 @@
             <div class="row form-group">
               <label class="col-xs-3">SSID</label> 
               <span class="col-xs-9">
-              <input class="form-control input-sm" style="display:inline;max-width:150px" id="inputtohide" type="text" name="ap_ssid">
+              <input class="form-control input-sm" style="display:inline;max-width:150px" id="inputtohide" type="text">
               <select class="form-control input-sm" style="display:none;max-width:150px" id="ssid" onchange="listBSSID();"></select>
               <button id="scanb" type="button" class="btn btn-primary btn-xs" style="display:none" onclick="scanWifi()">Scan</button>
               </span>
@@ -142,47 +142,46 @@
             <div class="row form-group" style="display:block" id="hideBSSID">
               <label data-toggle="tooltip" title="If you have two Wi-Fi networks with the same SSID you may want to choose the specific one by BSSID" class="col-xs-3">BSSID</label> 
               <span class="col-xs-9">
-              <input data-toggle="tooltip" title="If you have two Wi-Fi networks with the same SSID you may want to choose the specific one by BSSID" id="wifibssid" style="max-width:150px" class="form-control input-sm" type="text" name="ap_bssid">
+              <input data-toggle="tooltip" title="If you have two Wi-Fi networks with the same SSID you may want to choose the specific one by BSSID" id="wifibssid" style="max-width:150px" class="form-control input-sm" type="text">
               </span> 
             </div>
             <div class="row form-group">
               <label class="col-xs-3">Password</label> 
               <span class="col-xs-9">
-              <input id="wifipass" style="max-width:150px" class="form-control input-sm" type="password" name="ap_passwd">
+              <input id="wifipass" style="max-width:150px" class="form-control input-sm" type="password">
               </span> 
             </div>
             <div class="row form-group" id="modeip" style="margin-top:24px;">
-              <label class="col-xs-3">IP Address Assignment</label>
+              <label class="col-xs-3">IP Address Acquisition</label>
               <div class="col-xs-9" style = "margin-top:7px;">
                 <form>
                   <label class="radio-inline"><input type="radio" value="0" name="ipmode" id="ipmodesta" onclick="handleIP('block');">Static </label>
-                  <label class="radio-inline"><input type="radio" value="1" name="ipmode" id="ipmodedyn" onclick="handleIP('none');" checked>Dynamic (DHCP)</label>
+                  <label class="radio-inline"><input type="radio" value="1" name="ipmode" id="ipmodedyn" onclick="handleIP('none');" checked>Automatic (DHCP)</label>
                 </form>
               </div>
             </div>          
             <div class="row form-group" style="display:none" id="staticIP">
               <label data-toggle="tooltip" title="Static IP address" class="col-xs-3">IP Address</label> 
               <span class="col-xs-9">
-              <input data-toggle="tooltip" title="Static IP address" placeholder="Static IP address" id="ip_static" style="max-width:150px" class="form-control input-sm" type="text" name="ip_static">
+              <input data-toggle="tooltip" title="Static IP address" placeholder="Static IP address" id="ip_static" style="max-width:150px" class="form-control input-sm" type="text">
               </span> 
             </div>
             <div class="row form-group" style="display:none" id="staticGW">
               <label data-toggle="tooltip" title="Gateway IP address" class="col-xs-3">Gateway</label> 
               <span class="col-xs-9">
-              <input data-toggle="tooltip" title="Gateway IP address" placeholder="Gateway IP address" id="ip_gateway" style="max-width:150px" class="form-control input-sm" type="text" name="ip_gateway">
+              <input data-toggle="tooltip" title="Gateway IP address" placeholder="Gateway IP address" id="ip_gateway" style="max-width:150px" class="form-control input-sm" type="text">
               </span> 
             </div>
             <div class="row form-group" style="display:none" id="staticMask">
               <label data-toggle="tooltip" title="Network mask" class="col-xs-3">Mask</label> 
               <span class="col-xs-9">
-              <input data-toggle="tooltip" title="Network mask" placeholder="Network mask" id="ip_mask" style="max-width:150px" class="form-control input-sm" type="text" name="ip_mask">
+              <input data-toggle="tooltip" title="Network mask" placeholder="Network mask" id="ip_mask" style="max-width:150px" class="form-control input-sm" type="text">
               </span> 
             </div>
             <br>
           </div>
           <div class="col-sm-6">
             <legend>Hardware Settings</legend>
-
             <div class="row form-group">
               <label class="col-xs-7" style="margin-top:4px;">Pin for "WiFi connected" signaling LED</label> 
               <span class="col-xs-4">
@@ -211,7 +210,7 @@
                     <tr id="pinA0">
                       <td class="text-center">A0</td>
                       <td class="text-center"><input input id="enabledA0"  type="checkbox" value="" onchange="changeColor('A0')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleA0" type="text" name="titleA0"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleA0" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeA0" id="inA0" checked disabled>I</label>
@@ -224,7 +223,7 @@
                     <tr id="pinD0">
                       <td class="text-center">D0</td>
                       <td class="text-center"><input input id="enabledD0"  type="checkbox" value="" onchange="changeColor('D0')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD0" type="text" name="titleD0"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD0" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD0" id="inD0" onclick="showBox(this.name)" checked>I</label>
@@ -237,7 +236,7 @@
                     <tr id="pinD1">
                       <td class="text-center">D1</td>
                       <td class="text-center"><input input id="enabledD1"  type="checkbox" value="" onchange="changeColor('D1')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD1" type="text" name="titleD1"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD1" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD1" id="inD1" onclick="showBox(this.name)" checked>I</label>
@@ -250,7 +249,7 @@
                     <tr id="pinD2">
                       <td class="text-center">D2</td>
                       <td class="text-center"><input input id="enabledD2"  type="checkbox" value="" onchange="changeColor('D2')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD2" type="text" name="titleD2"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD2" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD2" id="inD2" onclick="showBox(this.name)" checked>I</label>
@@ -263,7 +262,7 @@
                     <tr id="pinD3">
                       <td class="text-center">D3</td>
                       <td class="text-center"><input input id="enabledD3"  type="checkbox" value="" onchange="changeColor('D3')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD3" type="text" name="titleD3"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD3" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD3" id="inD3" disabled>I</label>
@@ -276,7 +275,7 @@
                     <tr  id="pinD4">
                       <td class="text-center">D4</td>
                       <td class="text-center"><input input id="enabledD4"  type="checkbox" value="" onchange="changeColor('D4')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD4" type="text" name="titleD4"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD4" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD4" id="inD4" disabled>I</label>
@@ -289,7 +288,7 @@
                     <tr id="pinD5">
                       <td class="text-center">D5</td>
                       <td class="text-center"><input input id="enabledD5"  type="checkbox" value="" onchange="changeColor('D5')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD5" type="text" name="titleD5"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD5" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD5" id="inD5" onclick="showBox(this.name)" checked>I</label>
@@ -302,7 +301,7 @@
                     <tr id="pinD6">
                       <td class="text-center">D6</td>
                       <td class="text-center"><input input id="enabledD6"  type="checkbox" value="" onchange="changeColor('D6')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD6" type="text" name="titleD6"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD6" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD6" id="inD6" onclick="showBox(this.name)" checked>I</label>
@@ -315,7 +314,7 @@
                     <tr id="pinD7">
                       <td class="text-center">D7</td>
                       <td class="text-center"><input input id="enabledD7"  type="checkbox" value="" onchange="changeColor('D7')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD7" type="text" name="titleD7"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD7" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD7" id="inD7" onclick="showBox(this.name)" checked>I</label>
@@ -328,7 +327,7 @@
                     <tr id="pinD8">
                       <td class="text-center">D8</td>
                       <td class="text-center"><input input id="enabledD8"  type="checkbox" value="" onchange="changeColor('D8')"></td>
-                      <td><input class="form-control input-sm" style="display:inline;max-width:140px" id="titleD8" type="text" name="titleD8"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD8" type="text"></td>
                       <td>
                         <form>
                           <label class="radio-inline"><input type="radio" value="0" name="modeD8" id="inD8" disabled>I</label>

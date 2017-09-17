@@ -53,16 +53,16 @@ $(window).load(function()
 function listCONF(obj) {
   document.getElementById("inputtohide").value = obj.ssid;
   document.getElementById("wifipass").value = obj.pswd;
-  document.getElementById("adminpwd").value = obj.adminpwd;
-  document.getElementById("ntpserver").value = obj.ntpserver;
-  document.getElementById("intervals").value = obj.ntpinterval;
-  document.getElementById("DropDownTimezone").value = obj.timezone;
+  document.getElementById("adminpwd").value = obj.apwd;
+  document.getElementById("ntpserver").value = obj.ntpser;
+  document.getElementById("intervals").value = obj.ntpint;
+  document.getElementById("DropDownTimezone").value = obj.tz;
   document.getElementById("hostname").value = obj.hostnm;
-  if (obj.address) {
-    document.getElementById("ip_static").value = obj.address;
+  if (obj.addr) {
+    document.getElementById("ip_static").value = obj.addr;
   }
-  if (obj.gateway) {
-    document.getElementById("ip_gateway").value = obj.gateway;
+  if (obj.gw) {
+    document.getElementById("ip_gateway").value = obj.gw;
   }
   if (obj.mask) {
     document.getElementById("ip_mask").value = obj.mask;
@@ -98,7 +98,7 @@ function listCONF(obj) {
     if (enab) {row.className="success";}
     else      {row.className="danger";}
   }
-  document.getElementById("wifiLED").value = obj.wifiled;
+  document.getElementById("wifiLED").value = obj.wled;
   ledPin();
 }
 
@@ -273,16 +273,16 @@ function saveConf()
   datatosend.ssid = ssid;
   datatosend.wmode = wmode;
   datatosend.ipmode = ipmode;
-  datatosend.address = document.getElementById("ip_static").value;
-  datatosend.gateway = document.getElementById("ip_gateway").value;
+  datatosend.addr = document.getElementById("ip_static").value;
+  datatosend.gw = document.getElementById("ip_gateway").value;
   datatosend.mask = document.getElementById("ip_mask").value;
   datatosend.pswd = document.getElementById("wifipass").value;
-  datatosend.ntpserver = document.getElementById("ntpserver").value;
-  datatosend.ntpinterval = document.getElementById("intervals").value;
-  datatosend.timezone = document.getElementById("DropDownTimezone").value;
+  datatosend.ntpser = document.getElementById("ntpserver").value;
+  datatosend.ntpint = document.getElementById("intervals").value;
+  datatosend.tz = document.getElementById("DropDownTimezone").value;
   datatosend.hostnm = document.getElementById("hostname").value;
-  datatosend.wifiled = document.getElementById("wifiLED").value;
-  datatosend.adminpwd = a;
+  datatosend.wled = document.getElementById("wifiLED").value;
+  datatosend.apwd = a;
 
   var gpios = new Array(10);
   for (var i = 0; i < 10; i++)
@@ -290,11 +290,11 @@ function saveConf()
     gpios[i] = new Array(6);
     var pin = pins[i];
     gpios[i][0] = pin;
-    gpios[i][1] = document.getElementById("enabled"+pin).checked;
+    gpios[i][1] = toInt(document.getElementById("enabled"+pin).checked);
     gpios[i][2] = document.getElementById("title"+pin).value;
-    gpios[i][3] = document.getElementById("out"+pin).checked;
-    gpios[i][4] = document.getElementById("pullup"+pin).checked;
-    gpios[i][5] = document.getElementById("def1_"+pin).checked;
+    gpios[i][3] = toInt(document.getElementById("out"+pin).checked);
+    gpios[i][4] = toInt(document.getElementById("pullup"+pin).checked);
+    gpios[i][5] = toInt(document.getElementById("def1_"+pin).checked);
   }
   datatosend.gpios = gpios;
   websock.send(JSON.stringify(datatosend));
@@ -302,6 +302,10 @@ function saveConf()
   location.reload();
 }
 
+function toInt(bl)
+{
+  return bl ? 1 : 0;
+}
 
 function backupset() {
   var dlAnchorElem = document.getElementById("downloadSet");
@@ -376,7 +380,7 @@ function listStats(obj) {
   colorStatusbar(document.getElementById("spiffs"));
   document.getElementById("ssidstat").innerHTML = obj.ssid;
   document.getElementById("ip").innerHTML = obj.ip;
-  document.getElementById("gate").innerHTML = obj.gateway;
+  document.getElementById("gate").innerHTML = obj.gw;
   document.getElementById("mask").innerHTML = obj.netmask;
   document.getElementById("dns").innerHTML = obj.dns;
   document.getElementById("mac").innerHTML = obj.mac;
