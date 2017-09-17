@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-version = "0.0.1"
+version = "0.0.2"
 
 # plugins/ESP-IO/__init__.py
 #
@@ -21,6 +21,8 @@ version = "0.0.1"
 #
 # Changelog (in reverse chronological order):
 # -------------------------------------------
+# 0.0.2 by Pako 2017-09-17 07:37 GMT+1
+#     - changes to increase reliability
 # 0.0.1 by Pako 2017-09-11 13:21 GMT+1
 #     - first public version
 #===============================================================================
@@ -182,6 +184,7 @@ leave the Username and Password entries blank."""
     wsClosedEvt = "WebSocketClosed"
     wsError = u"ESP-IO: WebSocket error: %s"
     wsMssg = "WebSocket message: %s"
+    dirError = 'ESP-IO: Pin "%s" is input !'
 #===============================================================================
 
 class ESP_IO(eg.PluginClass):
@@ -233,7 +236,7 @@ class ESP_IO(eg.PluginClass):
                     data = {}
                 return data
             else:
-                eg.PrintErrror('ESP-IO: Pin "%s" is input !' % pin) # #####################################################
+                eg.PrintErrror(self.text.dirError % pin)
         else:
             token = self.GetToken()
             evt = self.queryData[token]
@@ -284,7 +287,6 @@ class ESP_IO(eg.PluginClass):
         self.queryData = {}
         self.debug = debug
         _ = eg.scheduler.AddTask(1.0, self.establishSubscriber)
-        #self.watchdog = eg.scheduler.AddTask(5.0, self.watcher)
         self.url = self.normalizeURL(host, port)
         self.port = port
         if not isinstance(password, eg.Password):
@@ -374,7 +376,7 @@ class ESP_IO(eg.PluginClass):
         try:
             m = loads(m)
             if 'command' in m and m['command'] == 'configfile':
-                del m['adminpwd']
+                del m['apwd']
                 del m['pswd']
             self.Log(self.text.wsMssg % repr(m), 5)
             self.lastMessage = ttime()
@@ -402,7 +404,7 @@ class ESP_IO(eg.PluginClass):
             elif cmd == 'configfile':
                 self.gpios = {}
                 for item in m['gpios']:
-                    if item[1] and item[0] != m['wifiled']:
+                    if item[1] and item[0] != m['wled']:
                         self.gpios[item[0]] = (item[2], item[3]) # title, out
                 self.wsC.send("{'command':'pinlist'}")
             elif cmd == 'pinlist':
@@ -683,7 +685,6 @@ class pinCommand(eg.ActionBase):
         pinCombo = wx.ComboBox(
             panel,
             -1,
-            #text.stopMode + " ...",
             choices = choices,
         )
         pinCombo.SetStringSelection(pin)
