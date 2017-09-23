@@ -79,7 +79,6 @@ typedef struct {
 CliData clients[MAX_CLIENTS];
 uint16_t oldvals[10];
 
-
 // Create AsyncWebServer instance on port "80"
 AsyncWebServer server(80);
 // Create WebSocket instance on URL "/ws"
@@ -232,7 +231,7 @@ void processSyncEvent(NTPSyncEvent_t ntpEvent)
   {
     Serial.begin(115200);
     Serial.println();
-    Serial.println(F("[ INFO ] ESP-IO v0.0.2"));
+    Serial.println(F("[ INFO ] ESP-IO v0.0.3"));
 
     for (uint8_t i = 0; i < MAX_CLIENTS; i++)
     {
@@ -274,7 +273,6 @@ void processSyncEvent(NTPSyncEvent_t ntpEvent)
     ws.onEvent(onWsEvent);
 
     // Configure web server
-    // Add Text Editor (http://esp-io.local/edit) to Web Server. This feature likely will be dropped on final release.
     // Serve all files in root folder
     server.serveStatic("/", SPIFFS, "/");
     // Handle what happens when requested web file couldn't be found
@@ -817,6 +815,8 @@ void processSyncEvent(NTPSyncEvent_t ntpEvent)
     Serial.print(F("[ INFO ] Access point IP address: "));
     Serial.println(myIP);
     server.serveStatic("/auth/", SPIFFS, "/auth/").setDefaultFile("settings.htm").setAuthentication("admin", "admin");
+    // Add Text Editor (http://esp-io.local/edit) to Web Server. This feature likely will be dropped on final release.
+    server.addHandler(new SPIFFSEditor("admin", "admin"));
   }
 
 
@@ -910,7 +910,7 @@ void processSyncEvent(NTPSyncEvent_t ntpEvent)
     server.serveStatic("/auth/", SPIFFS, "/auth/").setDefaultFile("control.htm").setAuthentication("admin", adminpass.c_str());
 
     // Add Text Editor (http://esp-io.local/edit) to Web Server. This feature likely will be dropped on final release.
-    server.addHandler(new SPIFFSEditor("admin", adminpass)); //TEST ###############################################
+    server.addHandler(new SPIFFSEditor("admin", adminpass));
 
     if (wmode == 1)
     {
