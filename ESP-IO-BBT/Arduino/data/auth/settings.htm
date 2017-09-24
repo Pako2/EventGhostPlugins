@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.75">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+    <title>ESP-IO</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/required.css" rel="stylesheet">
+    <script src="/required.js" type="text/javascript"></script>
+    <script src="/auth/set.js" type="text/javascript"></script>
+    <style>
+       .table > tbody > tr > td {
+        vertical-align: middle;
+       }
+    </style>
+</head>
+<body>
+<div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="/auth/control.htm">Control</a> </li>
+            <li role="presentation" class="active"><a href="/auth/settings.htm">Settings</a> </li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">ESP-IO</h3>
+      </div>
+      <div class="jumbotron">
+        <div class="alert alert-warning"><strong>Warning!</strong> Settings will take effect when the device is rebooted. 
+        </div>
+        <div id="loading-img" class="text-center">
+                            <img src="/load.gif">
+                  <h5>Please wait while fetching data... <span id="loadpages"></span></h5>
+        </div>
+        <span>
+          <button id="refstat" onclick="refreshStats()" class="btn btn-link btn-sm">Show Device Status</button>
+          <button id="hidstat" onclick="hideStats()" style="display:none" class="btn btn-link btn-sm">Hide Device Status</button>
+        </span>
+        <div id="status" class="row" style="display:none">
+            <div class="col-sm-6">
+              <div class="panel panel-default table-responsive">
+                <table class="table table-hover table-striped">
+                  <caption>Network</caption>
+                  <tr>
+                    <th>SSID</th>
+                    <td id="ssidstat"></td>
+                  </tr>
+                  <tr>
+                    <th>IP</th>
+                    <td id="ip"></td>
+                  </tr>
+                  <tr>
+                    <th>Gateway</th>
+                    <td id="gate"></td>
+                  </tr>
+                  <tr>
+                    <th>Mask</th>
+                    <td id="mask"></td>
+                  </tr>
+                  <tr>
+                    <th>DNS</th>
+                    <td id="dns"></td>
+                  </tr>
+                  <tr>
+                    <th>MAC</th>
+                    <td id="mac"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="panel panel-default table-responsive">
+                <table class="table table-hover table-striped">
+                  <caption>Device</caption>
+                  <tr>
+                    <th>Chip ID</th>
+                    <td id="chip"></td>
+                  </tr>
+                  <tr>
+                    <th>CPU Clock</th>
+                    <td id="cpu"></td>
+                  </tr>
+                  <tr>
+                    <th>Free Heap</th>
+                    <td>
+                      <div class="progress" style="margin-bottom: 0 !important;">
+                        <div id="heap" class="progress-bar progress-bar-primary" role="progressbar">
+                          Progress
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Free Flash</th>
+                    <td>
+                      <div class='progress' style="margin-bottom: 0 !important;">
+                        <div id="flash" class="progress-bar progress-bar-primary" role="progressbar">
+                          Progress
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+      <tr>
+ 					<th>Free SPIFFS</th>
+ 					<td>			
+ 					<div class='progress' style="margin-bottom: 0 !important;">
+ 						<div id="spiffs" class="progress-bar progress-bar-primary" role="progressbar">
+ 							Progress
+ 						</div>
+ 					</div></td>
+ 			</tr>
+                </table>
+              </div>
+            </div>
+          </div>
+            <br>
+        <div class="row">
+          <div class="col-sm-6">
+            <legend>Network Settings</legend>
+            <h6 class="text-muted">Type your Wi-Fi Network's SSID or Scan for nerby Wireless Networks to join.</h6>
+            <div class="row form-group">
+              <label class="col-xs-4">Wi-Fi Mode</label>
+              <div class="col-xs-8">
+                <form>
+                  <label class="radio-inline"><input type="radio" value="1" name="wmode" id="wmodeap" onclick="handleAP();">Access Point </label>
+                  <label class="radio-inline"><input type="radio" value="0" name="wmode" id="wmodesta" onclick="handleSTA();" checked>Client</label>
+                </form>
+              </div>
+            </div>
+            <div class="row form-group">
+              <label class="col-xs-4">SSID</label> 
+              <span class="col-xs-8">
+              <input class="form-control input-sm" style="display:inline;max-width:150px" id="inputtohide" type="text">
+              <select class="form-control input-sm" style="display:none;max-width:150px" id="ssid" onchange="listBSSID();"></select>
+              <button id="scanb" type="button" class="btn btn-primary btn-xs" style="display:inline" onclick="scanWifi()">Scan</button>
+              </span>
+            </div>
+            <div class="row form-group" style="display:block" id="hideBSSID">
+              <label data-toggle="tooltip" title="If you have two Wi-Fi networks with the same SSID you may want to choose the specific one by BSSID" class="col-xs-4">BSSID</label> 
+              <span class="col-xs-8">
+              <input data-toggle="tooltip" title="If you have two Wi-Fi networks with the same SSID you may want to choose the specific one by BSSID" id="wifibssid" style="max-width:150px" class="form-control input-sm" type="text">
+              </span> 
+            </div>
+            <div class="row form-group">
+              <label class="col-xs-4">Password</label> 
+              <span class="col-xs-8">
+              <input id="wifipass" style="max-width:150px" class="form-control input-sm" type="password">
+              </span> 
+            </div>
+            <div class="row form-group" id="modeip" style="margin-top:24px;">
+              <label class="col-xs-4">Address Acquisition</label>
+              <div class="col-xs-8">
+                <form>
+                  <label class="radio-inline"><input type="radio" value="0" name="ipmode" id="ipmodesta" onclick="handleIP('block');">Static </label>
+                  <label class="radio-inline"><input type="radio" value="1" name="ipmode" id="ipmodedyn" onclick="handleIP('none');" checked>Automatic (DHCP)</label>
+                </form>
+              </div>
+            </div>          
+            <div class="row form-group" style="display:none" id="staticIP">
+              <label data-toggle="tooltip" title="Static IP address" class="col-xs-4">IP Address</label> 
+              <span class="col-xs-8">
+              <input data-toggle="tooltip" title="Static IP address" placeholder="Static IP address" id="ip_static" style="max-width:150px" class="form-control input-sm" type="text">
+              </span> 
+            </div>
+            <div class="row form-group" style="display:none" id="staticGW">
+              <label data-toggle="tooltip" title="Gateway IP address" class="col-xs-4">Gateway</label> 
+              <span class="col-xs-8">
+              <input data-toggle="tooltip" title="Gateway IP address" placeholder="Gateway IP address" id="ip_gateway" style="max-width:150px" class="form-control input-sm" type="text">
+              </span> 
+            </div>
+            <div class="row form-group" style="display:none" id="staticMask">
+              <label data-toggle="tooltip" title="Network mask" class="col-xs-4">Mask</label> 
+              <span class="col-xs-8">
+              <input data-toggle="tooltip" title="Network mask" placeholder="Network mask" id="ip_mask" style="max-width:150px" class="form-control input-sm" type="text">
+              </span> 
+            </div>
+            <br>
+            <div id="bbt_settings" style="display:block">
+              <legend>Beebotte Settings</legend>
+              <div class="row form-group">
+                <label data-toggle="tooltip" title="Beebotte Channel" class="col-xs-4">Channel</label> 
+                <span class="col-xs-8">
+                <input data-toggle="tooltip" title="Beebotte Channel" placeholder="Beebotte Channel" id="bbt_channel" style="max-width:190px" class="form-control input-sm" type="text">
+                </span> 
+              </div>              
+              <div class="row form-group">
+                <label data-toggle="tooltip" title="Command Resource" class="col-xs-4">Command Resource</label> 
+                <span class="col-xs-8">
+                <input data-toggle="tooltip" title="Command Resource" placeholder="Command Resource" id="bbt_cmdrsrc" style="max-width:190px" class="form-control input-sm" type="text">
+                </span> 
+              </div>              
+              <div class="row form-group">
+                <label data-toggle="tooltip" title="Message Resource" class="col-xs-4">Message Resource</label> 
+                <span class="col-xs-8">
+                <input data-toggle="tooltip" title="Message Resource" placeholder="Message Resource" id="bbt_msgrsrc" style="max-width:190px" class="form-control input-sm" type="text">
+                </span> 
+              </div>              
+              <div class="row form-group">
+                <label data-toggle="tooltip" title="Beebotte Secret Channel Token" class="col-xs-4">Token</label> 
+                <span class="col-xs-8">
+                <input data-toggle="tooltip" title="Beebotte Secret Channel Token" placeholder="Secret Channel Token" id="bbt_token" style="max-width:190px" class="form-control input-sm" type="password">
+                </span> 
+              </div>              
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <legend>Hardware Settings</legend>
+            <div class="row form-group">
+              <label class="col-xs-7" style="margin-top:4px;">Pin for "WiFi connected" signaling LED</label> 
+              <span class="col-xs-4">
+                <select class="form-control input-sm" style="display:inline;max-width:120px" id="wifiLED" onChange="ledPin()">
+                  <option value="D0">D0 (GPIO-16)</option>
+                  <option  selected="selected" value="D4">D4 (GPIO-2)</option>
+                  <option value="null">None</option>
+                </select>
+              </span>
+            </div>
+
+            <div class="form-group">
+              <div class="table-responsive">
+                <table style="width: auto;" class="table table-bordered table-condensed table-hover">
+                  <thead>
+                    <tr class="warning">
+                      <th class="text-center">Pin</th>
+                      <th class="text-center" data-toggle="tooltip" title="This GPIO is enabled">Enab.</th>
+                      <th>Pin/Event title</th>
+                      <th>&nbsp;&nbsp;&nbsp;In / Out</th>
+                      <th class="text-center" data-toggle="tooltip" title="Internal pullup resistor connected">Pullup</th>
+                      <th class="text-center" data-toggle="tooltip" title="Default value is HIGH (otherwise LOW)">Def. HIGH</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="pinA0" class="danger">
+                      <td class="text-center">A0</td>
+                      <td class="text-center"><input input id="enabledA0"  type="checkbox" value="" onchange="changeColor('A0')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleA0" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeA0" id="inA0" checked disabled>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeA0" id="outA0" disabled>O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupA0"  type="checkbox" value="" style="display:none"></td>
+                      <td class="text-center"><input input id="def1_A0"  type="checkbox" value="" style="display:none"></td>
+                    </tr>
+                    <tr id="pinD0" class="danger">
+                      <td class="text-center">D0</td>
+                      <td class="text-center"><input input id="enabledD0"  type="checkbox" value="" onchange="changeColor('D0')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD0" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD0" id="inD0" onclick="showBox(this.name)" checked>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD0" id="outD0" onclick="hideBox(this.name)">O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD0"  type="checkbox" value="" style="display:none"></td>
+                      <td class="text-center"><input input id="def1_D0"  type="checkbox" value="" style="display:none"></td>
+                    </tr>
+                    <tr id="pinD1" class="danger">
+                      <td class="text-center">D1</td>
+                      <td class="text-center"><input input id="enabledD1"  type="checkbox" value="" onchange="changeColor('D1')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD1" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD1" id="inD1" onclick="showBox(this.name)" checked>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD1" id="outD1" onclick="hideBox(this.name)">O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD1"  type="checkbox" value="" style="display:inline"></td>
+                      <td class="text-center"><input input id="def1_D1"  type="checkbox" value="" style="display:none"></td>
+                    </tr>
+                    <tr id="pinD2" class="danger">
+                      <td class="text-center">D2</td>
+                      <td class="text-center"><input input id="enabledD2"  type="checkbox" value="" onchange="changeColor('D2')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD2" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD2" id="inD2" onclick="showBox(this.name)" checked>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD2" id="outD2" onclick="hideBox(this.name)">O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD2"  type="checkbox" value="" style="display:inline"></td>
+                      <td class="text-center"><input input id="def1_D2"  type="checkbox" value="" style="display:none"></td>
+                    </tr>
+                    <tr id="pinD3" class="danger">
+                      <td class="text-center">D3</td>
+                      <td class="text-center"><input input id="enabledD3"  type="checkbox" value="" onchange="changeColor('D3')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD3" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD3" id="inD3" disabled>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD3" id="outD3" checked disabled>O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD3"  type="checkbox" value="" style="display:none"></td>
+                      <td class="text-center"><input input id="def1_D3"  type="checkbox" value="" style="display:inline"></td>
+                    </tr>
+                    <tr  id="pinD4"  class="danger" style="display:none">
+                      <td class="text-center">D4</td>
+                      <td class="text-center"><input input id="enabledD4"  type="checkbox" value="" onchange="changeColor('D4')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD4" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD4" id="inD4" disabled>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD4" id="outD4" checked disabled>O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD4"  type="checkbox" value="" style="display:none"></td>
+                      <td class="text-center"><input input id="def1_D4"  type="checkbox" value="" style="display:inline"></td>
+                    </tr>
+                    <tr id="pinD5" class="danger">
+                      <td class="text-center">D5</td>
+                      <td class="text-center"><input input id="enabledD5"  type="checkbox" value="" onchange="changeColor('D5')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD5" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD5" id="inD5" onclick="showBox(this.name)" checked>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD5" id="outD5" onclick="hideBox(this.name)">O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD5"  type="checkbox" value="" style="display:inline"></td>
+                      <td class="text-center"><input input id="def1_D5"  type="checkbox" value="" style="display:none"></td>
+                    </tr>
+                    <tr id="pinD6" class="danger">
+                      <td class="text-center">D6</td>
+                      <td class="text-center"><input input id="enabledD6"  type="checkbox" value="" onchange="changeColor('D6')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD6" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD6" id="inD6" onclick="showBox(this.name)" checked>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD6" id="outD6" onclick="hideBox(this.name)">O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD6"  type="checkbox" value="" style="display:inline"></td>
+                      <td class="text-center"><input input id="def1_D6"  type="checkbox" value="" style="display:none"></td>
+                    </tr>
+                    <tr id="pinD7" class="danger">
+                      <td class="text-center">D7</td>
+                      <td class="text-center"><input input id="enabledD7"  type="checkbox" value="" onchange="changeColor('D7')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD7" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD7" id="inD7" onclick="showBox(this.name)" checked>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD7" id="outD7" onclick="hideBox(this.name)">O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD7"  type="checkbox" value="" style="display:inline"></td>
+                      <td class="text-center"><input input id="def1_D7"  type="checkbox" value="" style="display:none"></td>
+                    </tr>
+                    <tr id="pinD8" class="danger">
+                      <td class="text-center">D8</td>
+                      <td class="text-center"><input input id="enabledD8"  type="checkbox" value="" onchange="changeColor('D8')"></td>
+                      <td><input data-toggle="tooltip" title="Max 16 characters !" maxLength = "16" class="form-control input-sm" style="display:inline;max-width:140px" id="titleD8" type="text"></td>
+                      <td>
+                        <form>
+                          <label class="radio-inline"><input type="radio" value="0" name="modeD8" id="inD8" disabled>I</label>
+                          <label class="radio-inline"><input type="radio" value="1" name="modeD8" id="outD8" checked disabled>O</label>
+                        </form>
+                      </td>
+                      <td class="text-center"><input input id="pullupD8"  type="checkbox" value="" style="display:none"></td>
+                      <td class="text-center"><input input id="def1_D8"  type="checkbox" value="" style="display:inline"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-6">
+            <legend>General Settings</legend>
+            <div class="row form-group">
+              <label class="col-xs-4">Admin Password</label> 
+              <span class="col-xs-8">
+              <input class="form-control input-sm" placeholder="Administrator Password" style="display:inline;max-width:185px" id="adminpwd" type="password">
+              </span>
+              <br>
+            </div>
+              <div class="row form-group">
+              <label class="col-xs-4">Host Name</label> 
+              <span class="col-xs-8">
+              <input class="form-control input-sm" placeholder="Hostname" style="display:inline;max-width:185px" id="hostname" type="text">
+              </span>
+              <br>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <legend>Time Settings</legend>
+            <h6 class="text-muted">Small differences between device time and local time can be ignored.</h6>
+            <div class="row form-group">
+              <label class="col-xs-3">Device Time</label> 
+              <span id="utc" class="col-xs-9">
+              </span>
+            </div>
+            <div class="row form-group">
+              <label class="col-xs-3">Browser Time</label> 
+              <span id="rtc" class="col-xs-9">
+              </span>
+            </div>
+            <div class="row form-group">
+              <div class="col-xs-3"><button onclick="syncBrowserTime()" class="btn btn-link btn-sm">Sync Browser Time to Device</button></div>
+              </div>
+            <div class="row form-group">
+              <label class="col-xs-3">NTP Server</label> 
+              <span class="col-xs-9">
+              <input class="form-control input-sm" placeholder="eg. pool.ntp.org" style="display:inline;max-width:185px" id="ntpserver" type="text">
+              </span>
+              <br>
+            </div>
+            <div class="row form-group">
+              <label class="col-xs-3">Intervals</label> 
+              <span class="col-xs-9">
+              <input class="form-control input-sm" placeholder="in Minutes" style="display:inline;max-width:185px" id="intervals" type="text">
+              </span>
+              <br>
+            </div>
+            <div class="row form-group">
+              <label class="col-xs-3">Time Zone</label> 
+              <span class="col-xs-9">
+                <select class="form-control input-sm" style="max-width:185px" name="DropDownTimezone" id="DropDownTimezone">
+                  <option value="-12">(GMT -12:00) Eniwetok, Kwajalein</option>
+                  <option value="-11">(GMT -11:00) Midway Island, Samoa</option>
+                  <option value="-10">(GMT -10:00) Hawaii</option>
+                  <option value="-9">(GMT -9:00) Alaska</option>
+                  <option value="-8">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+                  <option value="-7">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+                  <option value="-6">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+                  <option value="-5">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                  <option value="-4">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+                  <option value="-3.5">(GMT -3:30) Newfoundland</option>
+                  <option value="-3">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+                  <option value="-2">(GMT -2:00) Mid-Atlantic</option>
+                  <option value="-1">(GMT -1:00 hour) Azores, Cape Verde Islands</option>
+                  <option value="0">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                  <option value="1">(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
+                  <option value="2">(GMT +2:00) Kaliningrad, South Africa</option>
+                  <option value="3">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+                  <option value="3.5">(GMT +3:30) Tehran</option>
+                  <option value="4">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+                  <option value="4.5">(GMT +4:30) Kabul</option>
+                  <option value="5">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                  <option value="5.5">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+                  <option value="5.75">(GMT +5:45) Kathmandu</option>
+                  <option value="6">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+                  <option value="7">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+                  <option value="8">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+                  <option value="9">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+                  <option value="9.5">(GMT +9:30) Adelaide, Darwin</option>
+                  <option value="10">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+                  <option value="11">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+                  <option value="12">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+                </select>
+              </span>
+              <br>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div>
+          <button onclick="saveConf()" class="btn btn-primary btn-sm pull-right">Save & Reboot</button> 
+        </div>
+        <br>
+      </div>
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-sm-6">
+            <legend>Backup</legend>
+            <h6 class="text-muted">Please make sure that you have made a backup before updating the firmware.</h6>
+            <div>
+              <button class="btn btn-link btn-sm" onclick="backupset()">Backup Settings</button>
+              <a id="downloadSet" style="display:none"></a>
+            </div>
+            <br>
+            <div>
+              <legend>Restore</legend>
+              <h6 class="text-muted">Click on links and choose your backup file to restore.</h6>
+              <label for="restoreSet" class="btn btn-link btn-sm">Restore Settings</label>
+              <input id="restoreSet" type="file" accept="text/json" onchange="restoreSet()" style="display:none;">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <legend>Update Firmware</legend>
+            <form class="form-inline" method="POST" action="/auth/update" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type="file" name="update">
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+            </form>
+            <br>
+          </div>
+        </div>
+      </div>
+      <hr>
+  <!-- Trigger the modal with a button -->
+  <h6 class="text-muted">ESP-IO - This is a<button class="btn btn-link btn-xs"  data-toggle="modal" data-target="#myModal">free</button>software</h6>
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Unlicense</h4>
+        </div>
+        <div>
+<pre><code>This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to &lt;<a href="http://unlicense.org/">http://unlicense.org/</a>&gt;
+</code></pre>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal2 -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Config file updating</h4>
+        </div>
+        <div class="modal-body">
+          <p>Config successfully sent.<br>Please wait for device to reboot !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
