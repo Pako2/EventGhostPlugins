@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-version = "0.0.2"
+version = "0.0.3"
 
 # plugins/ESP-IO/__init__.py
 #
@@ -21,6 +21,8 @@ version = "0.0.2"
 #
 # Changelog (in reverse chronological order):
 # -------------------------------------------
+# 0.0.3 by Pako 2017-09-23 19:15 GMT+1
+#     - bugfixes
 # 0.0.2 by Pako 2017-09-17 07:37 GMT+1
 #     - changes to increase reliability
 # 0.0.1 by Pako 2017-09-11 13:21 GMT+1
@@ -85,8 +87,8 @@ Plugin uses libraries websocket-client_ .
 Plugin version: %s
 
 .. _ESP-12F:           https://en.wikipedia.org/wiki/ESP8266
-.. _`NodeMcu 1.0`:           https://en.wikipedia.org/wiki/NodeMCU
-.. _`WeMos D1 mini`:    https://wiki.wemos.cc/products:d1:d1_mini
+.. _`NodeMcu 1.0`:     https://en.wikipedia.org/wiki/NodeMCU
+.. _`WeMos D1 mini`:   https://wiki.wemos.cc/products:d1:d1_mini
 .. _websocket-client:  https://pypi.python.org/pypi/websocket-client
 ''' % version,
     url = "http://www.eventghost.net/forum/viewtopic.php?f=9&t=9817",
@@ -96,7 +98,7 @@ from time import time as ttime
 from threading import Thread
 from base64 import b64encode
 from copy import deepcopy as cpy
-from json import loads
+from json import loads, dumps
 from random import randrange
 from eg.WinApi.Dynamic import CreateEvent, SetEvent
 from os.path import split, abspath
@@ -129,7 +131,7 @@ class WebSocketClient(WebSocketApp):
         
 
     def on_error(self, _, error):
-        eg.PrintError(self.plugin.text.wsError % error)
+        eg.PrintError(self.plugin.text.wsError % (self.plugin.info.eventPrefix, error))
         self.plugin.stopWatchdog()
         self.watchdog = eg.scheduler.AddTask(5.0, self.plugin.watcher)
 
@@ -182,9 +184,10 @@ leave the Username and Password entries blank."""
     config = "ConfigLoaded"
     wsOpenedEvt = "WebSocketOpened"
     wsClosedEvt = "WebSocketClosed"
-    wsError = u"ESP-IO: WebSocket error: %s"
+    wsError = u"%s: WebSocket error: %s"
     wsMssg = "WebSocket message: %s"
-    dirError = 'ESP-IO: Pin "%s" is input !'
+    input = '%s: Pin "%s" is input !'
+    unknmsg = '%s: Unknown message: %s'
 #===============================================================================
 
 class ESP_IO(eg.PluginClass):
@@ -216,31 +219,18 @@ class ESP_IO(eg.PluginClass):
     def SendPinCommand(self, cmd, pin, value):
         gpio = None
         for key, val in self.gpios.items():
-            if val[0]==pin:
+            if val[0] == pin:
                 gpio = key
                 break
         if gpio is None:
             return
+        token = self.GetToken()
+        evt = self.queryData[token]
+        msg = {"command":cmd,"id":gpio, "token":token}
         if value is not None:
-            if self.gpios[gpio][1]:  #test, if pin is output
-                token = self.GetToken()
-                evt = self.queryData[token]
-                msg='{"command":"%s","id":"%s", "value":"%i", "token":"%s"}' % (cmd, gpio, value, token)
-                try:
-                    self.wsC.send(msg)
-                    eg.actionThread.WaitOnEvent(evt)
-                    data = self.queryData[token]
-                    del self.queryData[token]
-                except:
-                    del self.queryData[token] 
-                    data = {}
-                return data
-            else:
-                eg.PrintErrror(self.text.dirError % pin)
-        else:
-            token = self.GetToken()
-            evt = self.queryData[token]
-            msg='{"command":"%s","id":"%s", "token":"%s"}' % (cmd, gpio, token)
+            msg["value"] = value
+        msg = dumps(msg)
+        if cmd == "getpinstate" or self.gpios[gpio][1]:  #get value or pin is output ?
             try:
                 self.wsC.send(msg)
                 eg.actionThread.WaitOnEvent(evt)
@@ -250,6 +240,9 @@ class ESP_IO(eg.PluginClass):
                 del self.queryData[token] 
                 data = {}
             return data
+        else:
+            eg.PrintError(self.text.input % (self.info.eventPrefix, pin))
+
 
     def normalizeURL(self, url, port):
         if not url.startswith("ws://"):
@@ -269,7 +262,7 @@ class ESP_IO(eg.PluginClass):
 
     def __start__(
         self,
-        prefix = "ESP-IO",
+        prefix = None,
         debug = 3,
         host = "ws://",
         port = 80,
@@ -277,6 +270,7 @@ class ESP_IO(eg.PluginClass):
         dummy = "",
         proxy = ["", 0, "", ""]
     ):
+        prefix = self.name if prefix is None else prefix
         self.info.eventPrefix = prefix
         self.prefix = prefix
         self.debug = debug
@@ -327,7 +321,7 @@ class ESP_IO(eg.PluginClass):
 
     def Log(self, message, level):
         if self.debug >= level:
-            print "%s: %s" % (self.name, message)
+            print "%s: %s" % (self.info.eventPrefix, message)
 
 
     def watcher(self):
@@ -415,12 +409,12 @@ class ESP_IO(eg.PluginClass):
                     suffix += ".%s" % PINSTATES[m['value']]
                 self.TriggerEvent(suffix, payload=m['value'])
         else:
-            print "unknown message:",repr(m)
+            eg.PrintNotice(unknmsg % (self.info.eventPrefix, repr(m)))
 
 
     def Configure(
         self,
-        prefix = "ESP-IO",
+        prefix = None,
         debug = 3,
         host = "ws://",
         port = 80,
@@ -428,6 +422,7 @@ class ESP_IO(eg.PluginClass):
         dummy = "",
         proxy = ["", 0, "", ""]
     ):
+        prefix = self.name if prefix is None else prefix
         if not isinstance(proxy[3], eg.Password):
             p = eg.Password(None)
             p.Set("")
