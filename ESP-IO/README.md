@@ -25,7 +25,7 @@ With a web interface, it must be possible the entire device to configure and as 
 
 ## Getting Started
 This project still in its development phase.
-Latest development version is 0.0.1
+Latest development version is 0.0.3
 
 ### What You Will Need 
 ### Hardware
