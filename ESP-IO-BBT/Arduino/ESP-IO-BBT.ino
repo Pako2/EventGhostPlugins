@@ -1208,21 +1208,14 @@ void callback(char* topic, byte* payload, unsigned int length)
 {
   uint16_t rslt;
   uint8_t ix;
-  Serial.print("message length: ");
-  Serial.println(length);
-
 
   // A buffer to receive a message
   char buffer[MQTT_MAX_PACKET_SIZE];
 
   snprintf(buffer, sizeof(buffer), "%s", payload);
-  Serial.println("received:");
-  Serial.print("topic: ");
-  Serial.println(topic);
-
   String cleanBuffer = copyToString(buffer, length);
 
-  Serial.println(cleanBuffer);
+  //Serial.println(cleanBuffer); //DEBUG
 
   // Decode the received message in JSON format
   //  StaticJsonBuffer<MQTT_MAX_PACKET_SIZE> jsonBuffer;
@@ -1243,8 +1236,6 @@ void callback(char* topic, byte* payload, unsigned int length)
     if (data_.containsKey("command"))
     {
       String command = data_["command"].as<String>();
-      Serial.print("command: ");
-      Serial.println(command);
       if (command == "getconf")
       {
         DynamicJsonBuffer jsonBuffer;
@@ -1361,5 +1352,6 @@ void publishChange(String id, String title, uint16_t val) {
   data["value"] = val;
   publish(data);
 }
+
 
 
