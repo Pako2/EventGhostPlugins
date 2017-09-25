@@ -65,11 +65,11 @@ Unlisted libraries are part of ESP8266 Core for Arduino IDE, so you don't need t
 * Flash webfiles data to SPIFFS either using ESP8266FS Uploader tool or with your favourite flash tool 
 * (optional) Fire up your serial monitor to get informed
 * Power on your ESP
-* Search for Wireless Network "ESP-IO" and connect to it (It should be an open network and does not reqiure password)
-* Open your browser and type either "http://192.168.4.1" or "http://esp-io.local" (.local needs Bonjour installed on your computer) on address bar.
+* Search for Wireless Network "ESP-IO-BBT" and connect to it (It should be an open network and does not reqiure password)
+* Open your browser and type either "http://192.168.4.1" or "http://esp-io-bbt.local" (.local needs Bonjour installed on your computer) on address bar.
 * Log on to ESP, default password is "admin"
 * Go to "Settings" page
 * Configure your amazing access control device. Push "Scan" button to join your wireless network, configure inputs and outputs.
 * Save settings, when rebooted your ESP will try to join your wireless network.
-* Check your new IP address from serial monitor and connect to your ESP again. (You can also connect to "http://esp-io.local")
+* Check your new IP address from serial monitor and connect to your ESP again. (You can also connect to "http://esp-io-bbt.local")
 * Congratulations, everything went well, if you encounter any issue feel free to ask help on GitHub.
