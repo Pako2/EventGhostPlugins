@@ -21,7 +21,7 @@ version = "0.0.1"
 #
 # Changelog (in reverse chronological order):
 # -------------------------------------------
-# 0.0.1 by Pako 2017-11-08 12:27 GMT+1
+# 0.0.1 by Pako 2017-11-08 12:34 GMT+1
 #     - first public version
 #===============================================================================
 
@@ -142,7 +142,7 @@ from beebotte import *
 import time
 import paho.mqtt.client as mqtt
 
-ffrom locale import setlocale, strcoll, LC_ALL
+from locale import setlocale, strcoll, LC_ALL
 #import logging
 #logging.basicConfig()
 #setlocale(LC_ALL, "")
