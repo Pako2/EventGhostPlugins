@@ -1,1 +1,1 @@
-# EventGhost plugins.
+# [EventGhost](http://www.eventghost.net/) plugins.
