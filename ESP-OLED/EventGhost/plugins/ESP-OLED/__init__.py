@@ -21,7 +21,9 @@ version = "0.0.1"
 #
 # Changelog (in reverse chronological order):
 # -------------------------------------------
-# 0.0.1 by Pako 2017-11-08 12:34 GMT+1
+# 0.0.1 by Pako 2017-11-09 12:28 GMT+1
+#     - added forum url
+# 0.0.0 by Pako 2017-11-08 12:34 GMT+1
 #     - first public version
 #===============================================================================
 
@@ -123,7 +125,7 @@ Plugin version: %s
 .. _bbt_python:        https://github.com/beebotte/bbt_python
 .. _paho.mqtt.python:  https://github.com/eclipse/paho.mqtt.python
 ''' % version,
-    #url = "http://www.eventghost.net/forum/viewtopic.php?f=9&t=XXXX",
+    url = "http://www.eventghost.net/forum/viewtopic.php?f=9&t=9928",
 )
 
 import paho.mqtt.client as mqtt
