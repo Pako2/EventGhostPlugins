@@ -1,1 +1,1 @@
-# EventGhostPlugins
+# EventGhost plugins.
