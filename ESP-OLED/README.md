@@ -38,7 +38,13 @@ Latest development version is 0.0.1
 
 ### What You Will Need 
 ### Hardware
-A development board like **WeMos D1 mini** or **NodeMcu 1.0** with at least 32Mbit Flash (equals to 4MBytes).
+* A development board like **WeMos D1 mini** or **NodeMcu 1.0** with at least 32Mbit Flash (equals to 4MBytes).
+* OLED display 0,96" 128x64 (I2C version)
+* Tact switches - 3 pieces
+* Resistor 470 ohm - 3 pieces
+* Resistor 4700 ohm
+* NPN transistor BC247
+* Magnetic buzzer CEM-1203(42)
 
 ### Software
 
