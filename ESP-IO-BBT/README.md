@@ -29,12 +29,12 @@ With a web interface, it must be possible the entire device to configure and as 
 * Using WebSocket protocol to exchange data between Hardware and Web Browser
 * Using Beebotte/MQTT protocol to exchange data between Hardware and EventGhost
 * Data is encoded as JSON object
-* Bootstrap, jQuery, FooTables for beautiful Web Pages for both Mobile and Desktop Screens
+* Bootstrap for beautiful Web Pages for both Mobile and Desktop Screens
 * Thanks to ESPAsyncWebServer Library communication is asynchronous
 
 ## Getting Started
 This project still in its development phase.
-Latest development version is 0.0.1
+Latest development version is 0.0.2
 
 ### What You Will Need 
 ### Hardware
