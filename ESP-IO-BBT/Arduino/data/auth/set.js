@@ -5,27 +5,79 @@ var userdata = [];
 var pins = ["A0","D0","D1","D2","D3","D4","D5","D6","D7","D8"];
 var password = "FAKE";
 var source;
-//var millisecondsToWait = 500;
 var t;
 var tt;
 var count = 0;
+var Modal;
 
 
-//(function(){
-//    var tId = setInterval(function(){if(document.readyState == "complete") onComplete()},50);
-//    function onComplete(){
-//        clearInterval(tId);    
-//        console.log("loaded: ",new Date().getTime().toString());
-//        
-//
-//        //setTimeout(function(){wait();}, millisecondsToWait);
-//    };
-//})()
-
-
-$(window).load(function()
+function start()
 {
     console.log("Window loaded   ",new Date().getTime().toString());
+
+        Modal = function(el, options) {
+        var self = this;
+        
+        this.el = document.querySelector(el);
+        this.options = options;
+        
+        try {
+            var list = document.querySelectorAll('#'+this.el.id+' [data-dismiss="modal"]');
+            for (var x = 0; x < list.length; x++){
+                list[x].addEventListener('click', function(e){ 
+                    if(e) e.preventDefault();
+                    self.hide();
+                });
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    };  
+    
+     /**
+     * Methods
+     */
+     Modal.prototype.show = function() {
+        var self = this;
+        // adding backdrop (transparent background) behind the modal
+        if (self.options.backdrop) {
+            var backdrop = document.getElementById('bs.backdrop');
+            if (backdrop === null) {
+                backdrop = document.createElement('div');
+                backdrop.id = "bs.backdrop";
+                backdrop.className = "modal-backdrop fade in";
+                document.body.appendChild(backdrop);
+            }
+        }
+        // show modal
+        this.el.classList.add('in');
+        this.el.style.display = 'block';
+        document.body.style.paddingRight = '13px';
+        document.body.classList.add('modal-open');
+    };
+    
+        Modal.prototype.hide = function() {
+        var self = this;
+        // hide modal
+        this.el.classList.remove('in');
+        this.el.style.display = 'none';
+        document.body.style = '';
+        document.body.classList.remove('modal-open');
+
+        // removing backdrop
+        if (self.options.backdrop) {
+            var backdrop = document.getElementById('bs.backdrop');
+            if (backdrop !== null) document.body.removeChild(backdrop);
+        }
+    };
+        
+        var m = new Modal('#myModal', {backdrop: true});
+        document.getElementById('btn-open').addEventListener('click', function(e) {
+          if(e) e.preventDefault();
+          m.show();
+        });    
+    
 
         if (!!window.EventSource) {
            source = new EventSource('/events');
@@ -44,10 +96,11 @@ $(window).load(function()
                setWebsock();
                source.close();
             }, false);
-        }     
-    
+        }
+        
+
   
-});
+}
 
 
 function listCONF(obj) {
@@ -154,7 +207,6 @@ function syncBrowserTime() {
 
 
 function handleIP(mode) {
-  //alert("IP mode = "+mode.toString());
   document.getElementById("staticIP").style.display = mode;
   document.getElementById("staticGW").style.display = mode;
   document.getElementById("staticMask").style.display = mode;
@@ -308,7 +360,9 @@ function saveConf()
   }
   datatosend.gpios = gpios;
   websock.send(JSON.stringify(datatosend));
-  $("#myModal2").modal();
+  
+  var mm = new Modal('#myModal2', { backdrop: true });
+  mm.show();
   location.reload();
 }
 
@@ -402,9 +456,7 @@ function setWebsock()
   websock = new WebSocket("ws://" + window.location.hostname + "/ws");
   websock.onopen = function(evt) {};
   websock.onclose = function(evt) {};
-  websock.onerror = function(evt) {
-    console.log(evt);
-  };
+  websock.onerror = function(evt) {console.log(evt);};
   websock.onmessage = function(evt) {
     var obj = JSON.parse(evt.data);
     if (obj.command === "ssidlist") 
@@ -438,20 +490,3 @@ function setWebsock()
   };
 }
 
-
-//function wait()
-//{
-//  console.log("Loop count: "+count.toString());
-//  if (password == "FAKE")
-//  {
-//    count+=1;
-//    if (count<10){setTimeout(function(){wait();}, millisecondsToWait);}
-//    else {setWebsock();}
-//  }
-//  else
-//  {
-//    console.log("Password retrieved: "+new Date().getTime().toString());
-//    source.close();
-//    setWebsock();
-//  }
-//}
