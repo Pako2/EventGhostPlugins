@@ -251,7 +251,7 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println();
-  Serial.println(F("[ INFO ] ESP-IO-BBT v0.0.1"));
+  Serial.println(F("[ INFO ] ESP-IO-BBT v0.0.2"));
 
   for (uint8_t i = 0; i < MAX_CLIENTS; i++)
   {
