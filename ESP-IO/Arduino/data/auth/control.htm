@@ -10,7 +10,6 @@
       <title>ESP-IO</title>
       <!-- Bootstrap core CSS -->
       <link href="/required.css" rel="stylesheet">
-      <script src="/required.js" type="text/javascript"></script>
       <script src="/auth/control.js" type="text/javascript"></script>
       <style>
        .table > tbody > tr > td {
@@ -47,7 +46,7 @@
          </div>
       <hr>
   <!-- Trigger the modal with a button -->
-  <h6 class="text-muted">ESP-IO - This is a<button class="btn btn-link btn-xs"  data-toggle="modal" data-target="#myModal">free</button>software</h6>
+  <h6 class="text-muted">ESP-IO - This is a<button id="btn-open" class="btn btn-link btn-xs"  data-toggle="modal" data-target="myModal">free</button>software</h6>
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -88,6 +87,9 @@ For more information, please refer to &lt;<a href="http://unlicense.org/">http:/
       </div>
     </div>
   </div>
-      </div>
-   </body>
+</div>
+<script>
+start();
+</script>
+</body>
 </html>
