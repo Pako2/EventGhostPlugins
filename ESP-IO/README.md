@@ -20,7 +20,7 @@ With a web interface, it must be possible the entire device to configure and as 
 ## Features
 * Using WebSocket protocol to exchange data between Hardware and Web Browser and or between Hardware and EventGhost
 * Data is encoded as JSON object
-* Bootstrap, jQuery, FooTables for beautiful Web Pages for both Mobile and Desktop Screens
+* Bootstrap for beautiful Web Pages for both Mobile and Desktop Screens
 * Thanks to ESPAsyncWebServer Library communication is asynchronous
 
 ## Getting Started
