@@ -231,7 +231,7 @@ void processSyncEvent(NTPSyncEvent_t ntpEvent)
   {
     Serial.begin(115200);
     Serial.println();
-    Serial.println(F("[ INFO ] ESP-IO v0.0.3"));
+    Serial.println(F("[ INFO ] ESP-IO v0.0.4"));
 
     for (uint8_t i = 0; i < MAX_CLIENTS; i++)
     {
