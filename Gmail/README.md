@@ -31,4 +31,4 @@ B.6) Choose the appropriate Gmail account and allow email to be sent using the G
 ![flow3](https://github.com/Pako2/EventGhostPlugins/raw/master/Gmail/Screenshots/flow3.png)  
 
 This project still in its development phase.  
-Latest development version is 0.0.0 .  
+Latest development version is 0.0.1 .  
