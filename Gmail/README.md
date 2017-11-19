@@ -1,5 +1,5 @@
 **Introduction**  
-This plugin has only one function and one action: it sends emails using the Google Gmail account.  
+This plugin has only one use and one action: it sends emails using the Google Gmail account.  
 The plugin uses [OAuth](https://en.wikipedia.org/wiki/OAuth) authorization, so you do not need to save the credentials in open form anywhere !  
 
 
