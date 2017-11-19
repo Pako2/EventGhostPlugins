@@ -24,7 +24,10 @@ B.1) Add the Gmail plugin to EventGhost
 B.2) In the main configuration dialog, set the path to the "Credentials Folder"  
 B.3) Prefix setting is optional. This is especially important if you have multiple instances of the Gmail plugin for multiple Gmail accounts  
 B.4) Press the OK button to close the configuration dialog  
-B.5) If the *client_secret.json* file is in the "Credentials Folder", your default internet browser opens  
+B.5) If the *client_secret.json* file is in the "Credentials Folder", your default internet browser opens
+![flow1](https://github.com/Pako2/EventGhostPlugins/raw/master/Gmail/Screenshots/flow1.png)
+![flow2](https://github.com/Pako2/EventGhostPlugins/raw/master/Gmail/Screenshots/flow2.png)
+![flow3](https://github.com/Pako2/EventGhostPlugins/raw/master/Gmail/Screenshots/flow3.png)
 B.6) Select the appropriate Gmail account and allow email to be sent using the Gmail plugin  
   
 This project still in its development phase.  
