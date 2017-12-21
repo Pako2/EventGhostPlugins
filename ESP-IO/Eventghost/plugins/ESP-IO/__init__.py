@@ -21,6 +21,8 @@ version = "0.0.3"
 #
 # Changelog (in reverse chronological order):
 # -------------------------------------------
+# 0.0.3 by Pako 2017-12-21 13:20 GMT+1
+#     - http://www.eventghost.net/forum/viewtopic.php?f=9&t=9817&p=49500#p49499
 # 0.0.3 by Pako 2017-09-23 19:15 GMT+1
 #     - bugfixes
 # 0.0.2 by Pako 2017-09-17 07:37 GMT+1
@@ -349,7 +351,6 @@ class ESP_IO(eg.PluginClass):
         self.lastMessage = ttime() 
         self.stopWatchdog()
         self.watchdog = eg.scheduler.AddTask(0.01, self.watcher)
-        self.Log(self.text.addLstnr, 4)
 
 
     def refreshWebSocket(self):
@@ -653,7 +654,7 @@ class pinCommand(eg.ActionBase):
             val if self.value == "setpinstate" else None
         )
         if data is not None:
-            if pin != self.plugin.gpios["A0"][0]:
+            if "A0" not in self.plugin.gpios or pin != self.plugin.gpios["A0"][0]:
                 return PINSTATES[data['value']]
             else:
                 return data['value']
