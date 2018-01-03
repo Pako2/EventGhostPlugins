@@ -13,14 +13,15 @@ No public IP or VPN or port redirection is required.
 The basic requirement was a smooth collaboration with EventGhost. This means that the state of the output must be able to be controlled by EventGhost actions, changing the state must trigger an EventGhost event, and it must be possible to query the state of output.
 With a web interface, it must be possible the entire device to configure and as well as to control.
 
-![Login page](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/index_htm-1184x216.png)
-![Control page](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Control_htm-1184x465.png)
-![Settings page](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Settings_htm-1184x1669.png)
-![Device status pop-up](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/DeviceStatus-1184x580.png)
+![Login page](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/index_htm-1184x226.png)
+![Control page A](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Control_htm_A-1184x520.png)
+![Control page B](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Control_htm_B-1184x520.png)
+![Settings page](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Settings_htm-1184x1476.png)
+![Device status pop-up](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/DeviceStatus-1184x503.png)
 ![Beebotte channel](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/BeebotteChannel.png)
-![Plugin dialog](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/PluginDialog.png)
-![Action dialog](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/SetPinStateDialog.png)
-![Eventghost log](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/EventGhostLog.png)
+![Plugin dialog A](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Plugin_A.png)
+![Plugin dialog B](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Plugin_B.png)
+![Action dialog](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Action.png)
 
 ## Features
 * Using WebSocket protocol to exchange data between Hardware and EventGhost or Web Browser
