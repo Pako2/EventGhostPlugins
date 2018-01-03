@@ -13,7 +13,7 @@ No public IP or VPN or port redirection is required.
 The basic requirement was a smooth collaboration with EventGhost. This means that the state of the output must be able to be controlled by EventGhost actions, changing the state must trigger an EventGhost event, and it must be possible to query the state of output.
 With a web interface, it must be possible the entire device to configure and as well as to control.
 
-![Login page](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/index_htm-1184x226.png)
+![Login page](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Index_htm-1184x226.png)
 ![Control page A](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Control_htm_A-1184x520.png)
 ![Control page B](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Control_htm_B-1184x520.png)
 ![Settings page](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Settings_htm-1184x1476.png)
