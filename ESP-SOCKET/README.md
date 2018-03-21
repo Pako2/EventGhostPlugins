@@ -67,7 +67,7 @@ Unlisted libraries are part of ESP8266 Core for Arduino IDE, so you don't need t
 * Open your browser and type either "http://192.168.4.1" or "http://esp-socket.local" (.local needs Bonjour installed on your computer) on address bar.
 * Log on to ESP, default password is "admin"
 * Go to "Settings" page
-* Configure your amazing access control device. Push "Scan" button to join your wireless network, configure inputs and outputs.
+* Configure your amazing access control device. Push "Scan" button to join your wireless network, configure the necessary parameters.
 * Save settings, when rebooted your ESP will try to join your wireless network.
 * Check your new IP address from serial monitor and connect to your ESP again. (You can also connect to "http://esp-socket.local")
 * Congratulations, everything went well, if you encounter any issue feel free to ask help on GitHub.
