@@ -24,6 +24,6 @@ So I studied the NodeMCU V1.0 circuit diagram and I found it quite simple. It wa
 ## Conclusion
 The finished programmer works as expected.
 
-In the Arduino environment, choose the NodeMCU 1.0 ((ESP-12E Module) board.
+In the Arduino environment, choose the **NodeMCU 1.0 (ESP-12E Module)** board.
 
-It is also possible to choose the highest speed 921600!
+It is also possible to choose the highest speed **921600** !
