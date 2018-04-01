@@ -19,7 +19,7 @@ So I studied the NodeMCU V1.0 circuit diagram and I found it quite simple. It wa
 ### Test version:
 <img src="https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-PROG/Images/test.jpg" alt="Test" width="50%">
 
-### Final version:
+### Final verion with USB converter:
 <img src="https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-PROG/Images/flasher.jpg" alt="Flasher" width="50%">
 
 ## Conclusion
