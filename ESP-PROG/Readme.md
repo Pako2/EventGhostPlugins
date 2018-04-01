@@ -6,7 +6,7 @@ Modules such as **NodeMCU V1.0** or **WeMos D1 mini** are great in the developme
 In this case, it is necessary to resolve how we will upload the firmware to the module (which is built into the new device). One of the possible solutions is described in this article.
 
 ## Initial requirements
-When I started with the development, I gave myself a simple assignment: flashing should be completely automatic (no push buttons). The module with the connected programmer should behave the same way as NodeMCU (or WeMos D1 mini).
+When I started with the development, I gave myself a simple input condition: flashing should be completely automatic (no push buttons). *The module with the connected programmer should behave the same way as NodeMCU (or WeMos D1 mini).*
 So I studied the NodeMCU V1.0 circuit diagram and I found it quite simple. It was obvious that I will need some USB converter that also has the RTS signal in addition to the DTR signal. Fortunately, it was not hard to find the right type. Moreover, it is quite cheap (I found a seller with a price just a little over one dollar).
 
 <img src="https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-PROG/Images/CP2102-top.jpg" alt="Top view" width="25%">
