@@ -292,11 +292,11 @@
 <wire x1="4.699" y1="-0.635" x2="4.699" y2="-3.7592" width="0.1524" layer="21"/>
 <wire x1="4.699" y1="0.635" x2="5.0292" y2="0.9398" width="0.254" layer="21"/>
 <wire x1="-7.366" y1="0" x2="-6.35" y2="0" width="0.1524" layer="21"/>
-<pad name="P" x="-9.525" y="0" drill="1.3208" diameter="3.048" shape="octagon"/>
-<pad name="1" x="-7.493" y="-5.969" drill="1.3208" diameter="3.048" shape="octagon"/>
-<pad name="2" x="-7.493" y="5.969" drill="1.3208" diameter="3.048" shape="octagon"/>
-<pad name="O" x="4.699" y="5.969" drill="1.3208" diameter="3.048" shape="octagon"/>
-<pad name="S" x="4.699" y="-5.969" drill="1.3208" diameter="3.048" shape="octagon"/>
+<pad name="P" x="-9.525" y="0" drill="0.7" diameter="3.048" shape="octagon"/>
+<pad name="1" x="-7.493" y="-5.969" drill="0.7" diameter="3.048" shape="octagon"/>
+<pad name="2" x="-7.493" y="5.969" drill="0.7" diameter="3.048" shape="octagon"/>
+<pad name="O" x="4.699" y="5.969" drill="0.7" diameter="3.048" shape="octagon"/>
+<pad name="S" x="4.699" y="-5.969" drill="0.7" diameter="3.048" shape="octagon"/>
 <text x="12.827" y="-8.255" size="1.778" layer="25" ratio="10" rot="R90">&gt;NAME</text>
 <text x="9.525" y="-7.62" size="1.778" layer="27" ratio="10" rot="R90">&gt;VALUE</text>
 </package>
@@ -12085,10 +12085,10 @@ Source: www.kingbright.com</description>
 <wire x1="-3.1" y1="-1" x2="-3.1" y2="1" width="0.2032" layer="21"/>
 <circle x="0" y="0" radius="1.75" width="0.2032" layer="51"/>
 <circle x="0" y="0" radius="1.75" width="0.2032" layer="21"/>
-<pad name="1" x="-3.25" y="2.25" drill="1" diameter="1.9304" shape="long"/>
-<pad name="2" x="3.25" y="2.25" drill="1" diameter="1.9304" shape="long"/>
-<pad name="3" x="-3.25" y="-2.25" drill="1" diameter="1.9304" shape="long"/>
-<pad name="4" x="3.25" y="-2.25" drill="1" diameter="1.9304" shape="long"/>
+<pad name="1" x="-3.25" y="2.25" drill="0.7" diameter="1.9304" shape="long"/>
+<pad name="2" x="3.25" y="2.25" drill="0.7" diameter="1.9304" shape="long"/>
+<pad name="3" x="-3.25" y="-2.25" drill="0.7" diameter="1.9304" shape="long"/>
+<pad name="4" x="3.25" y="-2.25" drill="0.7" diameter="1.9304" shape="long"/>
 <text x="-2.54" y="3.81" size="1.27" layer="25">&gt;NAME</text>
 <text x="-2.54" y="-5.08" size="1.27" layer="27">&gt;VALUE</text>
 </package>
@@ -12383,11 +12383,11 @@ Source: www.kingbright.com</description>
 <wire x1="4.445" y1="1.27" x2="3.81" y2="0.635" width="0.1524" layer="21"/>
 <wire x1="3.81" y1="-0.635" x2="4.445" y2="-1.27" width="0.1524" layer="21"/>
 <wire x1="5.715" y1="-1.27" x2="4.445" y2="-1.27" width="0.1524" layer="21"/>
-<pad name="1" x="-5.08" y="0" drill="1.016" diameter="1.6764" shape="long" rot="R90"/>
-<pad name="2" x="-2.54" y="0" drill="1.016" diameter="1.6764" shape="long" rot="R90"/>
-<pad name="3" x="0" y="0" drill="1.016" diameter="1.6764" shape="long" rot="R90"/>
-<pad name="4" x="2.54" y="0" drill="1.016" diameter="1.6764" shape="long" rot="R90"/>
-<pad name="5" x="5.08" y="0" drill="1.016" diameter="1.6764" shape="long" rot="R90"/>
+<pad name="1" x="-5.08" y="0" drill="0.7" diameter="1.6764" shape="long" rot="R90"/>
+<pad name="2" x="-2.54" y="0" drill="0.7" diameter="1.6764" shape="long" rot="R90"/>
+<pad name="3" x="0" y="0" drill="0.7" diameter="1.6764" shape="long" rot="R90"/>
+<pad name="4" x="2.54" y="0" drill="0.7" diameter="1.6764" shape="long" rot="R90"/>
+<pad name="5" x="5.08" y="0" drill="0.7" diameter="1.6764" shape="long" rot="R90"/>
 <text x="-6.4262" y="1.8288" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-6.35" y="-3.175" size="1.27" layer="27">&gt;VALUE</text>
 <rectangle x1="2.286" y1="-0.254" x2="2.794" y2="0.254" layer="51"/>
