@@ -25,5 +25,5 @@ So I studied the NodeMCU V1.0 circuit diagram and I found it quite simple. It wa
 ## Conclusion
 The finished programmer works as expected.  
 In the Arduino environment, choose the **NodeMCU 1.0 (ESP-12E Module)** board.  
-It is also possible to choose the highest speed **921600** !  
+The programmer works reliably even at the highest speed (**921600**) !  
 The target plate must be equipped with a corresponding five-pin connector (see the [ESP-SOCKET](https://github.com/Pako2/EventGhostPlugins/tree/master/ESP-SOCKET) project for example).
