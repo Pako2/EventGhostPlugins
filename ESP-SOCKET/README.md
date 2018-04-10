@@ -1,13 +1,14 @@
 # ESP-SOCKET - Remote-controlled electrical socket
-The project assumes the use of ESP-12 module either as **NodeMcu 1.0** or **WeMos D1 mini**.
+The project assumes the use of a "bare" ESP-12 module (such as ESP-12F). You can use the [ESP-PROG](https://github.com/Pako2/EventGhostPlugins/tree/master/ESP-PROG) programmer to easily program the device. Therefore, a 5-pin connector is available on the board.
 
 ## Preface
 This project is based on my project [ESP-IO-BBT](https://github.com/Pako2/EventGhostPlugins/tree/master/ESP-IO-BBT).
 *So, here we can say too:*
-The device may be in a completely different network than EventGhost.
+The device **may be** in a completely different network than EventGhost.
 Only Internet connectivity at both ends is a condition.
 No public IP or VPN or port redirection is required.
-**This is possible thanks to the [Beebotte](https://beebotte.com) service.**
+**This is possible thanks to the [Beebotte](https://beebotte.com) service.**  
+However, using the Beebotte service is only an option (this is not mandatory). If you want, you can (of course) use a VPN or port redirection.
 
 ## Initial requirements
 The basic requirement was a smooth collaboration with EventGhost. This means that the state of the output must be able to be controlled by EventGhost actions, changing the state must trigger an EventGhost event, and it must be possible to query the state of output.
@@ -36,7 +37,7 @@ Latest development version is 0.0.1
 
 ### What You Will Need 
 ### Hardware
-A development board like **WeMos D1 mini** or **NodeMcu 1.0** with at least 32Mbit Flash (equals to 4MBytes).
+An ESP-12 module with at least 32Mbit Flash (equals to 4MBytes).
 
 ### Software
 
@@ -71,3 +72,12 @@ Unlisted libraries are part of ESP8266 Core for Arduino IDE, so you don't need t
 * Save settings, when rebooted your ESP will try to join your wireless network.
 * Check your new IP address from serial monitor and connect to your ESP again. (You can also connect to "http://esp-socket.local")
 * Congratulations, everything went well, if you encounter any issue feel free to ask help on GitHub.
+
+### Operation
+In normal operation, the device usually works as a WiFi client. If you need to reconfigure your device (if the configured network is not available), do the following:
+1) Turn off the device
+2) Press and hold the S2 button
+3) Turn on the device
+4) Release the S2 when the WiFi LED lights up
+
+The device now works in AP mode (SSID is an ESP-SOCKET) and is available at 192.168.4.1. Once connected, you can make the necessary changes to the configuration.
