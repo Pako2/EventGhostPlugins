@@ -80,4 +80,4 @@ In normal operation, the device usually works as a WiFi client. If you need to r
 3) Turn on the device
 4) Release the S2 when the WiFi LED lights up
 
-The device now works in AP mode (SSID is an ESP-SOCKET) and is available at 192.168.4.1. Once connected, you can make the necessary changes to the configuration.
+The device now works in AP mode (Wireless Network "ESP-SOCKET") and is available at 192.168.4.1. Once connected, you can make the necessary changes to the configuration.
