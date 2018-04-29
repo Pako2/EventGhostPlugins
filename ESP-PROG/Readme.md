@@ -22,6 +22,12 @@ So I studied the NodeMCU V1.0 circuit diagram and I found it quite simple. It wa
 ### Final version with USB converter:
 <img src="https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-PROG/Images/flasher.jpg" alt="Flasher" width="50%">
 
+### Finished programmer in a box and with a cable
+<img src="https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-PROG/Images/ESP_PROG.png" alt="In_a_box" width="50%">
+
+### Programmer connected to the target board
+<img src="https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-PROG/Images/At_work.png" alt="At_work" width="50%">
+
 ## Conclusion
 The finished programmer works as expected.  
 In the Arduino environment, choose the **NodeMCU 1.0 (ESP-12E Module)** board.  
