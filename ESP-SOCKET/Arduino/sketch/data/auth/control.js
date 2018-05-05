@@ -6,6 +6,27 @@ var source;
 var count=0;
 var txts = ["Turn ON", "Turn OFF"];
 var classes = ["btn-success", "btn-danger"];
+var lastTimeStamp = 0;
+
+
+
+
+function test() {
+    //var ts = Date.now();
+    //console.log("Time stamp: ", Date.now().toString());
+    var reload = document.getElementById("reload");
+    if (Date.now()-lastTimeStamp>40000)
+      {
+        console.log("Nop missing !");
+        reload.style.display = 'block';
+      }
+    else
+      {
+        reload.style.display = 'none';
+      }
+    }
+
+
 
 function start()
 {
@@ -126,11 +147,18 @@ function toggleState()
   websock.send("{\"command\":\"toggle\"}");
 }
 
+function reloadPage()
+{
+  window.location.reload(true); 
+  //var btn = document.getElementById("btn");
+}
+
 
 function setWebsock()
 {
   websock = new WebSocket("ws://" + window.location.hostname +    ":"+window.location.port+        "/ws");
-  websock.onopen  = function(evt) {};
+  lastTimeStamp = Date.now();
+  websock.onopen  = function(evt) {var interval = setInterval(test, 40000);};
   websock.onclose = function(evt) {};
   websock.onerror = function(evt) {console.log(evt);};
   websock.onmessage = function(evt)
@@ -155,11 +183,21 @@ function setWebsock()
   }
   else if (obj.command === "authorized")
   {
+    websock.send("{\"command\":\"getconf\"}");
     var commandtosend = {};
     //commandtosend.command = "pinlist";
     commandtosend.command = "getstate";
     websock.send(JSON.stringify(commandtosend));
   }
-  };
+  else if (obj.command === "configfile")
+  {
+    var hostnm = document.getElementById("hostnm");
+    hostnm.innerHTML = obj.hostnm;
+  }
+  else if (obj.command === "nop")
+    {
+    lastTimeStamp = Date.now();
+    }
+  }
 }
 
