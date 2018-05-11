@@ -85,7 +85,7 @@ The device now works in AP mode (Wireless Network "ESP-SOCKET") and is available
 ## How the development went
 At home I had an unused (partly non-functional) set of four remote-controlled electrical outlets. ![RC-710](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/RC-710.png)
 The construction of these sockets has proven to be very convenient for rebuilding to a "WiFi socket". The box is sturdy and can be easily dismantled and there is plenty of space to fit all the components.
-I have decided that I will use (for the first time) the plain **ESP-12F** and not the popular **NodeMCU** or **WeMos Mini D1**. I had several reasons:
+I have decided that I will use (for the first time) the plain **ESP-12F** and not the popular **NodeMCU** or **WeMos D1 mini**. I had several reasons:
 1) The ESP-12F is cheaper
 2) The ESP-12F takes up less space
 3) The ESP-12F has less power consumption  
@@ -93,7 +93,7 @@ I have decided that I will use (for the first time) the plain **ESP-12F** and no
 These are the same benefits, but there is also (at least one) disadvantage: it is necessary to solve how I will upload firmware to the ESP-12F module. That's why I first had to work on the development of **[ESP-PROG](https://github.com/Pako2/EventGhostPlugins/tree/master/ESP-PROG)**. Once it was done, I could go back to developing of **ESP-SOCKET**.  
 As can be seen from the picture, I worked in three steps: ![Development process](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/development_process.png)
 1) The breadboard construction
-2) A prototype that partly used the original printed circuit board (`due to the design of the buttons`) and partially universal printed circuit board ![Original PCB](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Original_PCB.png)
+2) A prototype that partly used the original printed circuit board (**due to the design of the buttons**) and partially universal printed circuit board ![Original PCB](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/Original_PCB.png)
 3) Newly designed printed circuit board (for details see the following pictures)
 ![Top](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/top.png)
 ![Bottom](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SOCKET/Arduino/demo/bottom.png)
