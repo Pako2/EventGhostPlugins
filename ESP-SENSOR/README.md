@@ -9,11 +9,11 @@ Eventghost plugin should allow to set any number of significant levels.
 If any of the levels are exceeded (and / or the value drops below), the corresponding event should be triggered.
 A change of relay state must trigger an event in EventGhost too.
 
-![OFF](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/OFF_1184x630.png)
-![ON](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/ON_1184x630.png)
-![Plugin dialog](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/EG_Plugin.png)
-![Events](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/EG_Events.png)
-![Dashboard ON](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/EG_ON.png)
+![OFF](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/OFF_1184x630.png)  
+![ON](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/ON_1184x630.png)  
+![Plugin dialog](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/EG_Plugin.png)  
+![Events](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/EG_Events.png)  
+![Dashboard ON](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/EG_ON.png)  
 ![Dashboard OFF](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/EG_OFF.png)
 
 ### What You Will Need 
