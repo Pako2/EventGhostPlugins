@@ -26,7 +26,8 @@ In contrast to the [ESP-SOCKET](https://github.com/Pako2/EventGhostPlugins/tree/
 * [HTU21D](https://github.com/enjoyneering/)  - an Arduino library for SHT21, HTU21D & Si70xx written by enjoyneering79
 
 ## How the development went
-As can be seen from the pictures, this time I worked in two steps:: ![Development process](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/development_process.png)
+As can be seen from the pictures, this time I worked in two steps:  
+![Development process](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/development_process.png)
 1) The breadboard construction (I just added the HTU-21D module to a previously prepared breadboard)
 2) Newly designed printed circuit board
 ![Top](https://github.com/Pako2/EventGhostPlugins/raw/master/ESP-SENSOR/Arduino/demo/top.png)
