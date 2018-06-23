@@ -18,7 +18,7 @@ A change of relay state must trigger an event in EventGhost too.
 
 ### What You Will Need 
 ### Hardware
-An ESP-12 module with at least 32Mbit Flash (equals to 4MBytes)
+An ESP-12 module with at least 32Mbit Flash (equals to 4MBytes)  
 A HTU-21D module.
 
 ### Software
